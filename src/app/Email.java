@@ -24,7 +24,10 @@ public class Email implements Serializable {
     public static final String SMALL_CHARS = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMBERS = "0123456789";
     public static final String SYMBOLS = "!@#$%&?";
-    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
+    /**
+     * Regex for email validation
+     */
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9._]+@\\w{3,}\\.(org|com)$";
     public static final int INITIAL_PASS_LENGTH = 8;
 
     public transient Scanner scanner = new Scanner(System.in);
@@ -252,6 +255,10 @@ public class Email implements Serializable {
         System.out.printf("ALTERNATIVE EMAIL: %s%n", (alterEmail == null || alterEmail.isEmpty()) ? "none" : alterEmail);
     }
 
+    /**
+     * Read an Email-object from the file system.
+     * @param filePath a path to the file with emails data in the file system.
+     */
     public void readFile(Path filePath) {
         Email email = readEmail(this, filePath);
         if(email == null) {
@@ -266,6 +273,11 @@ public class Email implements Serializable {
         this.alterEmail = email.getAlterEmail();
         System.out.println("Email read from file and updated.");
     }
+
+    /**
+     * Store an object to the file system.
+     * @param filePath a path to the file with emails data in the file system.
+     */
     public void storeFile(Path filePath) {
         writeEmailToFile(filePath, this);
     }

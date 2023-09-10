@@ -5,7 +5,25 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * A util class.
+ * Allows user interaction and file management.
+ */
 public final class EmailUtils {
+    /**
+     * Forbids an instantiation of the util class EmailUtils.
+     * Throw an exception if an instantiation is attempted.
+     */
+    private EmailUtils() {
+        throw new AssertionError("EmailUtils is a util class and cannot be instantiated.");
+    }
+
+    /**
+     * Provide a UI for user interactions through the console.
+     * @param scanner a scanner to read user's input
+     * @param email a specific instance of the Email-class
+     * @param path a path to the file with emails data in the file system.
+     */
     public static void handleUserInteractions(Scanner scanner, Email email, Path path) {
         int choice;
         do {
@@ -33,6 +51,11 @@ public final class EmailUtils {
         } while (choice != 7);
     }
 
+    /**
+     * Read a list of Email-objects from the file system.
+     * @param filePath a path to the file with emails data in the file system.
+     * @return a list of all emails stored in the file system.
+     */
     private static List<Email> readFromFile(Path filePath) {
         List<Email> emails = new ArrayList<>();
 
@@ -55,6 +78,13 @@ public final class EmailUtils {
         return emails;
     }
 
+    /**
+     * Find a specific email.
+     * @param emails a list of Email-objects.
+     * @param email a String with an email address provided by the user.
+     * @param password a String with a password provided by the user.
+     * @return a specific Email-object.
+     */
     private static Email findEmail(List<Email> emails, String email, String password) {
         for (Email e : emails) {
             if (e.getEmail().equals(email) && e.getPassword().equals(password)) {
@@ -64,10 +94,23 @@ public final class EmailUtils {
         return null;
     }
 
+    /**
+     * read a specific email from the file system.
+     * @param email a specific instance of the Email-class
+     * @param path a path to the file with emails data in the file system.
+     * @return a specific Email-object.
+     */
     public static Email readEmail(Email email, Path path){
         return findEmail(readFromFile(path), email.getEmail(), email.getPassword());
     }
 
+    /**
+     * Let the user enter an email address and password,
+     * and find a specific Email-object in the file system using th entered data.
+     * @param scanner a scanner to read user's input
+     * @param path a path to the file with emails data in the file system.
+     * @return a specific Email-object, null if a specified email non-existent.
+     */
     public static Email loadExistingUser(Scanner scanner, Path path) {
         List<Email> emails = readFromFile(path);
         if(emails.isEmpty()){
@@ -93,6 +136,12 @@ public final class EmailUtils {
         return findEmail(emails, email, password);
     }
 
+    /**
+     * Let user enter an email address and password,
+     * and create a new instance of the Email-class using th entered data.
+     * @param scanner a scanner to read user's input
+     * @return a new Email-object, created using the data entered by the user.
+     */
     public static Email createNewUser(Scanner scanner) {
         System.out.print("Enter your firstname: ");
         String firstName = scanner.next();
@@ -103,6 +152,11 @@ public final class EmailUtils {
         return new Email(firstName, lastName);
     }
 
+    /**
+     * Save an instance of the Email-class to the file system.
+     * @param filePath a path to the file with emails data in the file system.
+     * @param newEmail an Email-object to be saved to the file system.
+     */
     public static void writeEmailToFile(Path filePath, Email newEmail) {
         createFile(filePath);
         List<Email> emails = readFromFile(filePath); // Read existing emails from file
@@ -129,7 +183,10 @@ public final class EmailUtils {
         }
     }
 
-
+    /**
+     * Create a new file in the file system to save emails.
+     * @param filePath a path to the file with emails data in the file system.
+     */
     public static void createFile(Path filePath) {
         Path directoryPath = filePath.getParent();
         try {

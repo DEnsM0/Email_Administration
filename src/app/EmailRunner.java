@@ -10,8 +10,17 @@ import java.util.Scanner;
 
 import static app.EmailUtils.*;
 
+/**
+ * Runs the app.
+ */
 public class EmailRunner {
+    /**
+     * Directory for the file with emails.
+     */
     public static final String FILE_DIR = "resources";
+    /**
+     * File where all emails are saved.
+     */
     public static final String FILE = "emails.emails";
 
     public static void main(String[] args) {
