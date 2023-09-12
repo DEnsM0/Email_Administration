@@ -7,7 +7,6 @@ The application will also allow users to store email accounts in the file system
 ## 2. Built With
 
 * [![Java][Java.io]][Java-url]
-* [![JavaFX][JavaFX.io]][JavaFX-url]
 
 ## 3. Installing
 
@@ -32,5 +31,3 @@ Feel free to explore and address these issues, which are conveniently listed in 
 
 [Java.io]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
 [Java-url]: https://www.java.com/en/
-[JavaFX.io]: https://img.shields.io/badge/JavaFX-%233f95ea?style=for-the-badge
-[JavaFX-url]: https://openjfx.io/
